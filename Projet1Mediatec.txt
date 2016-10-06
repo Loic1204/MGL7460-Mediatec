@@ -100,12 +100,3 @@ Commandes :
 
 
 * help : affiche les commandes disponibles
-[a]Si c'est un nom composé, long comment faire si on fait une erreur dans le nom ?
-Remarque on peut utiliser une expression régulière pour ça.
-On pourrait peut être rajouter une option de confirmation du nom de film
-[b]on peut pas traiter les erreurs, mais je pense qu'on pourra formater les formats des noms pour simplifier
-[c]Ok
-[d]on pourrait faire mieux mais il vaut sans doute mieux se concentrer sur ce qui est en rapport direct avec le cours !
-[e]oui je pense aussi
-[f]est-ce qu'on peut faire ça comme ça ?
-[g]je pense que oui !
