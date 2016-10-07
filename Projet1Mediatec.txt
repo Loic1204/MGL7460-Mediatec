@@ -22,34 +22,22 @@ Fonctionnalités :
 
 
 Commandes :
-* login [OPTIONS] [USERNAME] [PASSWORD] : authentification selon l’option avec le nom d’utilisateur et le mot de passe, retourne les échéances des emprunts en cours. Par défaut l’utilisateur sera authentifié comme utilisateur normal et non comme administrateur.
-   * -a --admin : authentification d’un administrateur du système (il peut aussi utiliser le même username et mot de passe pour avoir accès aux commandes d’utilisateur normal).
-   * -q --quiet : si activé, ne retourne pas les échéances des emprunts en cours.
-   * -h --help : affiche les commandes possibles
 
-
-* borrow [OPTIONS] [FILM NAME] : emprunt d’un film dont le nom est précisé par FILM NAME[a][b][c][d][e].
+* borrow [OPTIONS] [FILM NAME] [USRNAME] : emprunt d’un film dont le nom est précisé par FILM NAME[a][b][c][d][e].
    * -a --again : prolongement d’un emprunt en cours. Si l’option n’est pas activée la commande répondra que le film est déjà emprunté.
    * -b --book : si le film est déjà emprunté il sera réservé au nom de l’utilisateur (sauf s’il est déjà réservé).
    * -h --help : affiche les commandes possibles
 
 
-* return [FILM NAME] : retour d’un film dont le nom est précisé par FILM NAME. Si aucun nom n’est précisé, tous les films empruntés par l’utilisateur sont retournés.
+* return [FILM NAME] : retour d’un film dont le nom est précisé par FILM NAME.
 
 
-* check [OPTIONS] : affiche la liste des emprunts et réservations en cours.
+* check [OPTIONS] [USRNAME] : affiche la liste des emprunts et réservations en cours.
    * -b --booking : n’affiche que les films réservés par l’utilisateur.
    * -n --namesort : trie la liste des films selon leurs noms.
    * -d --datesort : trie la liste des films selon leurs dates.
    * -w -- writersort : trie la liste des films selon le nom du réalisateur.
    * -t --timesort : trie la liste des films selon le temps d’emprunt restant.
-
-
-* look [OPTIONS] : affiche la liste des films de la base.
-   * -n --namesort : trie la liste des films selon leurs noms.
-   * -d --datesort : trie la liste des films selon leurs dates.
-   * -w -- writersort : trie la liste des films selon le nom du réalisateur.
-   * -a --available : n’affiche que les films qui sont disponibles pour un emprunt.
 
 
 * search [OPTIONS] : affiche le résultat d’une recherche sur les films.
@@ -60,43 +48,17 @@ Commandes :
    * -a --available : affiche la liste des films qui sont disponibles pour un emprunt.
 
 
-* addusr [OPTIONS] [USERNAME] [PASSWORD] : crée un utilisateur ayant USERNAME comme nom et PASSWORD comme mot de passe. Par défaut l’utilisateur n’est pas un administrateur.
+* addusr [OPTIONS] [ADMINNAME] [USERNAME] [PASSWORD] : crée un utilisateur ayant USERNAME comme nom et PASSWORD comme mot de passe. Par défaut l’utilisateur n’est pas un administrateur.
    * -a --admin : l’utilisateur créé aura aussi un compte administrateur (en plus de son compte normal).
 
 
-* deactivateusr [USER] [OPTIONS] : désactive un utilisateur qui ne pourra plus se connecter.
-   * f --forever : désactiver l’utilisateur jusqu’à réactivation
-   * y --year : désactiver l’utilisateur pour 365 jours
-   * m --month : désactiver l’utilisateur pour 30 jours
-
-
 * modusr [OPTIONS] [USERNAME] [CHAR] : modifie un utilisateur existant.
-   * -n --name: modifier le USERNAME. Il est remplacé par ce qui est spécifié dans CHAR
-   * -p --password : modifier le password de USERNAME, CHAR : nouveau password
    * -a --admin : ajoute le statut d’admin au compte
    * -u --user : retire le statut d’admin au compte
    * -q --quiet : ne demande pas de confirmation
 
 
-* addfilm [FILM NAME] [DATE] [WRITER] : crée un film ayant FILM NAME comme nom, DATE comme date et WRITER comme réalisateur.
-
-
-* deactivatefilm [FILM NAME] [OPTIONS] : désactive un film qui ne sera plus visible lors des recherches.
-   * -f --forever : désactiver le film jusqu’à réactivation
-   * -y --year : désactiver le film pour 365 jours
-   * -m --month : désactiver le film pour 30 jours
-
-
-* reactivate [OPTIONS] : [f][g]
-   * -f --film [FILMNAME] : rendre un film de nouveau disponible à l’emprunt
-   * -u -user [USER] : réactiver un utilisateur afin qu’il puisse emprunter des films
-
-
-* modfilm [OPTIONS] [FILM NAME] [CHAR] : modifie un film existant.
-   * -n --name: modifier le nom du film. Il est remplacé par ce qui est spécifié dans CHAR
-   * -d --date: modifier la date du film, CHAR : nouvelle date.
-   * -w --writer: modifier le réalisateur du film, CHAR : nouveau réalisateur.
-   * -q --quiet : ne demande pas de confirmation
+* addfilm [FILM NAME] [ADMINNAME] [DATE] [WRITER] : crée un film ayant FILM NAME comme nom, DATE comme date et WRITER comme réalisateur.
 
 
 * help : affiche les commandes disponibles
