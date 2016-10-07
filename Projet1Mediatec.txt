@@ -34,17 +34,17 @@ Commandes :
 
 * check [OPTIONS] [USRNAME] : affiche la liste des emprunts et réservations en cours.
    * -b --booking : n’affiche que les films réservés par l’utilisateur.
-   * -n --namesort : trie la liste des films selon leurs noms.
-   * -d --datesort : trie la liste des films selon leurs dates.
-   * -w -- writersort : trie la liste des films selon le nom du réalisateur.
-   * -t --timesort : trie la liste des films selon le temps d’emprunt restant.
+   *? -n --namesort : trie la liste des films selon leurs noms.
+   *? -d --datesort : trie la liste des films selon leurs dates.
+   *? -w -- writersort : trie la liste des films selon le nom du réalisateur.
+   *? -t --timesort : trie la liste des films selon le temps d’emprunt restant.
 
 
 * search [OPTIONS] : affiche le résultat d’une recherche sur les films.
    * -b --borrow : emprunte automatiquement le premier résultat de la recherche.
    * --name=NAME : affiche les films dont le nom correspond au nom indiqué.
-   * --date=DATE : affiche les films dont la date correspond à celle indiquée.
-   * --writer=WRITER : affiche les films dont le réalisateur correspond au nom indiqué.
+   *? --date=DATE : affiche les films dont la date correspond à celle indiquée.
+   *? --writer=WRITER : affiche les films dont le réalisateur correspond au nom indiqué.
    * -a --available : affiche la liste des films qui sont disponibles pour un emprunt.
 
 
@@ -52,7 +52,7 @@ Commandes :
    * -a --admin : l’utilisateur créé aura aussi un compte administrateur (en plus de son compte normal).
 
 
-* modusr [OPTIONS] [USERNAME] [CHAR] : modifie un utilisateur existant.
+*? modusr [OPTIONS] [USERNAME] [CHAR] : modifie un utilisateur existant.
    * -a --admin : ajoute le statut d’admin au compte
    * -u --user : retire le statut d’admin au compte
    * -q --quiet : ne demande pas de confirmation
