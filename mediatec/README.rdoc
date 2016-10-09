@@ -1,0 +1,6 @@
+= mediatec
+
+Describe your project here
+
+:include:mediatec.rdoc
+

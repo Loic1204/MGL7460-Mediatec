@@ -1,0 +1,5 @@
+= mediatec
+
+Generate this with
+    mediatec rdoc
+After you have described your command line interface
