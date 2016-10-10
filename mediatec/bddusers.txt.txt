@@ -1,0 +1,7 @@
+sarahv;admin
+najehv;admin
+loicd;admin
+plop;user
+boop;user
+test;user
+test2;admin
