@@ -7,10 +7,10 @@ Fonctionnalités :
 * Emprunter, prolonger un emprunt, retourner un film. Durée initiale 7 jours
 * Envoi de notifications quand l’emprunt arrive bientôt à échéance
 * Gestion des films, triage par type, catégorie, année de sortie, etc
-   * ajout, suppression de films, gestion des doublons par un administrateur
+   * ajout, suppression de films par un administrateur
 * Gestions des clients (emprunteurs)
-   * ajout/modification de clients, suppression/désactivation par un administrateur
-   * historique d’emprunts, un fichier par clients ou films ?
+   * ajout/modification de clients par un administrateur
+   * historique d’emprunts
 * Recherche de films par rapport au type, catégorie, année, réalisateur (STDIN) retourne une liste
 * Gestion des droits des utilisateurs
 * Regarder les informations d’un film ?
@@ -23,7 +23,7 @@ Fonctionnalités :
 
 Commandes :
 
-* borrow [OPTIONS] [FILM NAME] [USRNAME] : emprunt d’un film dont le nom est précisé par FILM NAME[a][b][c][d][e].
+* borrow [OPTIONS] [FILM NAME] [USRNAME] : emprunt d’un film dont le nom est précisé par FILM NAME.
    * -a --again : prolongement d’un emprunt en cours. Si l’option n’est pas activée la commande répondra que le film est déjà emprunté.
    * -b --book : si le film est déjà emprunté il sera réservé au nom de l’utilisateur (sauf s’il est déjà réservé).
    * -h --help : affiche les commandes possibles
@@ -48,17 +48,17 @@ Commandes :
    * -a --available : affiche la liste des films qui sont disponibles pour un emprunt.
 
 
-* addusr [OPTIONS] [ADMINNAME] [USERNAME] [PASSWORD] : crée un utilisateur ayant USERNAME comme nom et PASSWORD comme mot de passe. Par défaut l’utilisateur n’est pas un administrateur.
+* addusr [OPTIONS] [ADMINNAME] [USERNAME] : crée un utilisateur ayant USERNAME comme nom. Par défaut l’utilisateur n’est pas un administrateur.
    * -a --admin : l’utilisateur créé aura aussi un compte administrateur (en plus de son compte normal).
 
 
-*? modusr [OPTIONS] [USERNAME] [CHAR] : modifie un utilisateur existant.
+*? modusr [OPTIONS] : modifie les droits d'un utilisateur existant.
    * -a --admin : ajoute le statut d’admin au compte
    * -u --user : retire le statut d’admin au compte
    * -q --quiet : ne demande pas de confirmation
 
 
-* addfilm [FILM NAME] [ADMINNAME] [DATE] [WRITER] : crée un film ayant FILM NAME comme nom, DATE comme date et WRITER comme réalisateur.
+* addfilm [ADMINNAME] [FILM NAME] [DATE] [WRITER] : crée un film ayant FILM NAME comme nom, DATE comme date et WRITER comme réalisateur.
 
 
 * help : affiche les commandes disponibles
