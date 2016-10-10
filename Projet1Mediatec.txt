@@ -52,7 +52,7 @@ Commandes :
    * -a --admin : l’utilisateur créé aura aussi un compte administrateur (en plus de son compte normal).
 
 
-*? modusr [OPTIONS] : modifie les droits d'un utilisateur existant.
+*? modusr [OPTIONS] [ADMINNAME] : modifie les droits d'un utilisateur existant.
    * -a --admin : ajoute le statut d’admin au compte
    * -u --user : retire le statut d’admin au compte
    * -q --quiet : ne demande pas de confirmation
