@@ -21,71 +21,162 @@ arguments :strict
 desc 'Describe some switch here'
 switch [:s,:switch]
 
-desc 'Describe some flag here'
-default_value 'the default'
-arg_name 'The name of the argument'
-flag [:f,:flagname]
+desc 'Execution en chargeant la bdd de films de voulue'
+default_value 'bddfilms.txt'
+arg_name 'bddfilms'
+flag [:bddf]
 
-desc 'Describe borrow here'
-arg_name 'Describe arguments to borrow here'
+
+desc 'Execution en chargeant la bdd de users de voulue'
+default_value 'bddusers.txt'
+arg_name 'bddusers'
+flag [:bddu]
+
+
+desc 'Emprunt d un film dont le nom est précisé en argument par un utilisateur usrname'
+arg_name 'filmname usrname'
 command :borrow do |c|
-  c.desc 'Describe a switch to borrow'
-  c.switch :s
+  c.desc 'Prolongement d un emprunt'
+  c.switch [:a,:again]
 
-  c.desc 'Describe a flag to borrow'
-  c.default_value 'default'
-  c.flag :f
+c.desc 'Reservation'
+c.switch [:b,:book]
+
+  #c.desc 'Describe a flag to borrow'
+  #c.default_value 'default'
+  #c.flag :f
+
   c.action do |global_options,options,args|
 
     # Your command logic here
      
     # If you have any errors, just raise them
     # raise "that command made no sense"
+    #ici a-t-on besoin de faire l’appel à l’option globale ? quelle bdd utilisée ?
+    bddf = global_options[:bddf]
+    bddu = global_options[:bddu]
+    again = options[:a]
+    book = options[:book]
+    film = args.shift
+    user = args.shift
+
+    fluxfilms = File.open(bddf)
+    fluxusers = File.open(bddu)
+    res = Mediatec.borrow(film, user, fluxfilms.readlines, fluxusers.readlines)
+        fluxfilms.close
+    fluxusers.close
+    #Modification de la BDD
+        File.open(bddf, "w") { |fluxfilms | fluxfilms .puts res }
 
     puts "borrow command ran"
   end
 end
 
-desc 'Describe return here'
-arg_name 'Describe arguments to return here'
+desc 'Retour d un film dont le nom est précisé en argument'
+arg_name 'filmname'
 command :return do |c|
   c.action do |global_options,options,args|
+bddf = global_options[:bddf]
+    film = args.shift
+
+    fluxfilms = File.open(bddf)
+    res = Mediatec.borrow(film, fluxfilms.readlines)
+        fluxfilms.close
+    #Modification de la BDD
+        File.open(bddf, "w") { |fluxfilms| fluxfilms.puts res }
+
     puts "return command ran"
   end
 end
 
-desc 'Describe check here'
-arg_name 'Describe arguments to check here'
+desc 'Affiche la liste des emprunts et réservations en cours'
+arg_name 'usrname'
 command :check do |c|
+c.desc ‘Afficher les films réservés par l utilisateur usrname’
+c.switch[:b,:booking]
+
   c.action do |global_options,options,args|
-    puts "check command ran"
+    bddf = global_options[:bddf]
+    booking = options[:b]
+    user = args.shift
+
+    fluxfilms = File.open(bddf)
+    res = Mediatec.check(user, fluxfilms.readlines)
+    fluxfilms.close
+
+    #Affiche la liste des emprunts
+    puts res
+    
   end
 end
 
-desc 'Describe search here'
-arg_name 'Describe arguments to search here'
+desc 'Recherche de films affichée sous forme de liste'
 command :search do |c|
+c.desc ‘Recherche par nom’
+#TODO : a verifier
+c.switch[:name]
+
+c.desc ‘Recherche de films disponibles’
+c.switch[:a,:available]
+
   c.action do |global_options,options,args|
-    puts "search command ran"
+bddf = global_options[:bddf]
+    name = options[:name]
+    available = options[:a]
+    
+    fluxfilms = File.open(bddf)
+    res = Mediatec.search(name, available, fluxfilms.readlines)
+        fluxfilms.close
+    puts res
   end
 end
 
-desc 'Describe addusr here'
-arg_name 'Describe arguments to addusr here'
+desc 'Crée un utilisateur ayant comme nom le username passé en argument'
+arg_name 'adminname usrname'
 command :addusr do |c|
+c.desc ‘Ajout de droits d admin’
+c.switch[:a,:admin]
+
   c.action do |global_options,options,args|
+    bddu = global_options[:bddu]
+    adminflag = options[:a]
+    adminname = args.shift
+    usrname = args.shift
+
+    fluxusers = File.open(bddu)
+    res = Mediatec.addusr(adminflag, adminname, usrname, fluxusers.readlines)
+        fluxusers.close
+    #Modification de la BDD
+        File.open(bddu, "w") { |fluxusers| fluxusers.puts res }
+
     puts "addusr command ran"
   end
 end
 
-desc 'Describe addfilm here'
-arg_name 'Describe arguments to addfilm here'
+desc 'Ajout d un film à la mediatec'
+arg_name 'adminname filmname date writer'
 command :addfilm do |c|
   c.action do |global_options,options,args|
+    bddf = global_options[:bddf]
+    bddu = global_options[:bddu]
+    adminname = args.shift
+    filmname = args.shift
+    date = args.shift
+    writer = args.shift
+
+    fluxfilms = File.open(bddf)
+    fluxusers = File.open(bddu)
+    res = Mediatec.addfilm(adminname, filmname, date, writer, fluxfilms.readlines, fluxusers.readlines)
+        fluxfilms.close
+    fluxusers.close
+    #Modification de la BDD
+        File.open(bddf, "w") { |fluxfilms| fluxfilms.puts res }
+
     puts "addfilm command ran"
   end
 end
 
+#Help à supprimer ?
 desc 'Describe help here'
 arg_name 'Describe arguments to help here'
 command :help do |c|
@@ -116,3 +207,4 @@ on_error do |exception|
 end
 
 exit run(ARGV)
+
