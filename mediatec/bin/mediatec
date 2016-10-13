@@ -92,8 +92,8 @@ end
 desc 'Affiche la liste des emprunts et réservations en cours'
 arg_name 'usrname'
 command :check do |c|
-c.desc ‘Afficher les films réservés par l utilisateur usrname’
-c.switch[:b,:booking]
+c.desc 'Afficher les films réservés par l utilisateur usrname'
+c.switch [:b,:booking]
 
   c.action do |global_options,options,args|
     bddf = global_options[:bddf]
@@ -112,12 +112,12 @@ end
 
 desc 'Recherche de films affichée sous forme de liste'
 command :search do |c|
-c.desc ‘Recherche par nom’
+c.desc 'Recherche par nom'
 #TODO : a verifier
-c.switch[:name]
+c.switch [:name]
 
-c.desc ‘Recherche de films disponibles’
-c.switch[:a,:available]
+c.desc 'Recherche de films disponibles'
+c.switch [:a,:available]
 
   c.action do |global_options,options,args|
 bddf = global_options[:bddf]
@@ -134,8 +134,8 @@ end
 desc 'Crée un utilisateur ayant comme nom le username passé en argument'
 arg_name 'adminname usrname'
 command :addusr do |c|
-c.desc ‘Ajout de droits d admin’
-c.switch[:a,:admin]
+c.desc 'Ajout de droits d admin'
+c.switch [:a,:admin]
 
   c.action do |global_options,options,args|
     bddu = global_options[:bddu]
@@ -177,13 +177,13 @@ command :addfilm do |c|
 end
 
 #Help à supprimer ?
-desc 'Describe help here'
-arg_name 'Describe arguments to help here'
-command :help do |c|
-  c.action do |global_options,options,args|
-    puts "help command ran"
-  end
-end
+#desc 'Describe help here'
+#arg_name 'Describe arguments to help here'
+#command :help do |c|
+#  c.action do |global_options,options,args|
+#    puts "help command ran"
+#  end
+#end
 
 pre do |global,command,options,args|
   # Pre logic here
