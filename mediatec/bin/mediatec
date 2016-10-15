@@ -11,7 +11,7 @@ end
 
 include GLI::App
 
-program_desc 'Describe your application here'
+program_desc 'Application d emprunt de films'
 
 version Mediatec::VERSION
 
@@ -33,7 +33,7 @@ arg_name 'bddusers'
 flag [:bddu]
 
 
-desc 'Emprunt d un film dont le nom est précisé en argument par un utilisateur usrname'
+desc 'Emprunt d un film dont le nom est precise en argument par un utilisateur usrname'
 arg_name 'filmname usrname'
 command :borrow do |c|
   c.desc 'Prolongement d un emprunt'
@@ -72,7 +72,7 @@ c.switch [:b,:book]
   end
 end
 
-desc 'Retour d un film dont le nom est précisé en argument'
+desc 'Retour d un film dont le nom est precise en argument'
 arg_name 'filmname'
 command :return do |c|
   c.action do |global_options,options,args|
@@ -89,10 +89,10 @@ bddf = global_options[:bddf]
   end
 end
 
-desc 'Affiche la liste des emprunts et réservations en cours'
+desc 'Affiche la liste des emprunts et reservations en cours'
 arg_name 'usrname'
 command :check do |c|
-c.desc 'Afficher les films réservés par l utilisateur usrname'
+c.desc 'Afficher les films reserves par l utilisateur usrname'
 c.switch [:b,:booking]
 
   c.action do |global_options,options,args|
@@ -110,7 +110,7 @@ c.switch [:b,:booking]
   end
 end
 
-desc 'Recherche de films affichée sous forme de liste'
+desc 'Recherche de films, resultat affiche sous forme de liste'
 command :search do |c|
 c.desc 'Recherche par nom'
 #TODO : a verifier
@@ -131,7 +131,7 @@ bddf = global_options[:bddf]
   end
 end
 
-desc 'Crée un utilisateur ayant comme nom le username passé en argument'
+desc 'Cree un utilisateur ayant comme nom le username passe en argument'
 arg_name 'adminname usrname'
 command :addusr do |c|
 c.desc 'Ajout de droits d admin'
@@ -153,7 +153,7 @@ c.switch [:a,:admin]
   end
 end
 
-desc 'Ajout d un film à la mediatec'
+desc 'Ajout d un film a la mediatec'
 arg_name 'adminname filmname date writer'
 command :addfilm do |c|
   c.action do |global_options,options,args|
