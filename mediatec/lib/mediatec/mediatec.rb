@@ -1,33 +1,29 @@
 #bddusers : usrname;(admin/user)
 #bddfilms : filmname;writer;date;emprunt;reservation
 module Mediatec
-  def self.search(name, available, lignes)
+  def self.search(name, available, filmsTab)
 	#TODO retourner qq chose si bdd vide
  
 	res = "TITRE | REALISATEUR | DATE\n"
 
-	lignes.map do |ligne|
-		tab = ligne.split(";")
+	filmsTab.each do |film|
 		#TODO utiliser un regex pour verifier une partie du nom
-		if name.nil? || name==tab[0]
-			if !available || available && tab[3].length==0
-				res << tab[0] + "|" + tab[1] + "|" + tab[2]
-				res << "\n"
+		if name.nil? || name==film.titre
+			if !available || available && film.emprunt.nil?
+				res << film.titre + "|" + film.realisateur + "|" + film.date + "\n"
 			end
 		end
 	end
 	return res
   end
 
-	def self.check(user, lignes)
+	def self.check(user, filmsTab)
 		#TODO booking?
 		res=""
 
-		lignes.map do |ligne|
-			tab = ligne.split(";")
-			if user==tab[3]
-				res << tab[0]
-				res << "\n"
+		filmsTab.each do |film|
+			if user==film.emprunt
+				res << film.titre + "\n"
 			end
 		end
 		return res
