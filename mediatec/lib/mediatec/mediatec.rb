@@ -33,19 +33,18 @@ module Mediatec
 		return res
 	end
 
-	def self.addusr(adminflag, adminname, usrname, lignes)
-		res=""
+	def self.addusr(adminflag, adminname, usrname, usersTab)
 		adminverified=false
 		alreadythere=false
 
-		lignes.map do |ligne|
-			tab = ligne.split(";")
-			res << ligne
-			alreadythere=true if name==tab[0]
-			adminverified=true if adminname==tab[0]
+		usersTab.each do |user|
+			alreadythere=true if usrname==user.usrname
+			adminverified=true if adminname==user.usrname && user.adminrights=="admin"
 		end
-		res<<"\n"+usrname+";"+(adminflag==true ? "admin" : "user") if adminverified && !alreadythere
 
-		return res
+		newUser = User.new(usrname,(adminflag==true ? "admin" : "user"))
+		usersTab << newUser if adminverified && !alreadythere
+
+		return usersTab
 	end
 end
