@@ -32,6 +32,7 @@ default_value 'bddusers.txt'
 arg_name 'bddusers'
 flag [:bddu]
 
+#TODO chargement de BDD dans classes
 
 desc 'Emprunt d un film dont le nom est precise en argument par un utilisateur usrname'
 arg_name 'filmname usrname'
@@ -80,7 +81,7 @@ bddf = global_options[:bddf]
     film = args.shift
 
     fluxfilms = File.open(bddf)
-    res = Mediatec.borrow(film, fluxfilms.readlines)
+    res = Mediatec.return(film, fluxfilms.readlines)
         fluxfilms.close
     #Modification de la BDD
         File.open(bddf, "w") { |fluxfilms| fluxfilms.puts res }
@@ -113,8 +114,9 @@ end
 desc 'Recherche de films, resultat affiche sous forme de liste'
 command :search do |c|
 c.desc 'Recherche par nom'
-#TODO : a verifier
-c.switch [:name]
+default_value ''
+arg_name 'filmname'
+c.flag [:name]
 
 c.desc 'Recherche de films disponibles'
 c.switch [:a,:available]
