@@ -5,7 +5,11 @@ class Film
 	attr_reader :emprunt
 	attr_reader :reservation
 	
-	def initialize (titre, realisateur, date, *emprunt, *reservation)
-		@titre, @realisateur, @date, @emprunt, @reservation = titre, realisateur, date, *emprunt, *reservation
+#	def initialize (titre, realisateur, date, emprunt, reservation)
+#		@titre, @realisateur, @date, @emprunt, @reservation = titre, realisateur, date, emprunt, reservation
+#	end
+
+	def initialize (titre, realisateur, date)
+		@titre, @realisateur, @date = titre, realisateur, date
 	end
 end

@@ -44,7 +44,7 @@ module Mediatec
 		return usersTab
 	end
 
-	def self.addfilm(adminname, titre, realisateur, date)
+	def self.addfilm(adminname, filmname, writer, date, filmsTab, usersTab)
 	#TODO A corriger 
 		admin_verified=false
 		already_there=false
@@ -54,10 +54,10 @@ module Mediatec
 		end
 
 		filmsTab.each do |film|
-			already_there=true if titre==film.titre
+			already_there=true if filmname==film.titre
 		end
 		
-		new_film = Film.new(titre, realisateur, date, *emprunt, *reservation)
+		new_film = Film.new(filmname, writer, date)
 		filmsTab << new_film if !already_there
 
 		return filmsTab	

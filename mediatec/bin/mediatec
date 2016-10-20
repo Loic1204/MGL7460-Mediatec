@@ -143,7 +143,7 @@ c.switch [:a,:admin]
 end
 
 desc 'Ajout d un film a la mediatec'
-arg_name 'adminname filmname date writer'
+arg_name 'adminname filmname writer date'
 command :addfilm do |c|
   c.action do |global_options,options,args|
     bddf = global_options[:bddf]
@@ -153,7 +153,7 @@ command :addfilm do |c|
     date = args.shift
     writer = args.shift
 
-    res = Mediatec.addfilm(adminname, filmname, date, writer, FluxFilm.read(bddf), FluxUser.read(bddu))
+    res = Mediatec.addfilm(adminname, filmname, writer, date, FluxFilm.read(bddf), FluxUser.read(bddu))
     #Modification de la BDD
     FluxFilm.write(bddf, res)
 
