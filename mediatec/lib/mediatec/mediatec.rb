@@ -29,7 +29,7 @@ module Mediatec
 		return res
 	end
 
-	def self.addusr(admin_flag, admin_name, usrname, users_tab)
+	def self.add_usr(admin_flag, admin_name, usrname, users_tab)
 		admin_verified=false
 		already_there=false
 
@@ -44,7 +44,7 @@ module Mediatec
 		return users_tab
 	end
 
-	def self.addfilm(admin_name, film_name, writer, date, films_tab, users_tab)
+	def self.add_film(admin_name, film_name, writer, date, films_tab, users_tab)
 	#TODO A corriger 
 		admin_verified=false
 		already_there=false

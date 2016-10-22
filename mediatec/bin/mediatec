@@ -22,20 +22,20 @@ desc 'Describe some switch here'
 switch [:s,:switch]
 
 desc 'Execution en chargeant la bdd de films de voulue'
-default_value 'bddfilms.txt'
-arg_name 'bddfilms'
+default_value 'bdd_films.txt'
+arg_name 'bdd_films'
 flag [:bddf]
 
 
 desc 'Execution en chargeant la bdd de users de voulue'
-default_value 'bddusers.txt'
-arg_name 'bddusers'
+default_value 'bdd_users.txt'
+arg_name 'bdd_users'
 flag [:bddu]
 
 #TODO chargement de BDD dans classes
 
 desc 'Emprunt d un film dont le nom est precise en argument par un utilisateur usrname'
-arg_name 'filmname usrname'
+arg_name 'film_name usrname'
 command :borrow do |c|
   c.desc 'Prolongement d un emprunt'
   c.switch [:a,:again]
@@ -70,7 +70,7 @@ c.switch [:b,:book]
 end
 
 desc 'Retour d un film dont le nom est precise en argument'
-arg_name 'filmname'
+arg_name 'film_name'
 command :return do |c|
   c.action do |global_options,options,args|
 bddf = global_options[:bddf]
@@ -106,7 +106,7 @@ desc 'Recherche de films, resultat affiche sous forme de liste'
 command :search do |c|
 c.desc 'Recherche par nom'
 default_value ''
-arg_name 'filmname'
+arg_name 'film_name'
 c.flag [:name]
 
 c.desc 'Recherche de films disponibles'
@@ -123,18 +123,18 @@ bddf = global_options[:bddf]
 end
 
 desc 'Cree un utilisateur ayant comme nom le username passe en argument'
-arg_name 'adminname usrname'
-command :addusr do |c|
+arg_name 'admin_name usrname'
+command :add_usr do |c|
 c.desc 'Ajout de droits d admin'
 c.switch [:a,:admin]
 
   c.action do |global_options,options,args|
     bddu = global_options[:bddu]
-    adminflag = options[:a]
-    adminname = args.shift
+    admin_flag = options[:a]
+    admin_name = args.shift
     usrname = args.shift
 
-    res = Mediatec.addusr(adminflag, adminname, usrname, FluxUser.read(bddu))
+    res = Mediatec.add_usr(admin_flag, admin_name, usrname, FluxUser.read(bddu))
     #Modification de la BDD
 	FluxUser.write(bddu,res)
 
@@ -143,32 +143,23 @@ c.switch [:a,:admin]
 end
 
 desc 'Ajout d un film a la mediatec'
-arg_name 'adminname filmname writer date'
-command :addfilm do |c|
+arg_name 'admin_name film_name writer date'
+command :add_film do |c|
   c.action do |global_options,options,args|
     bddf = global_options[:bddf]
     bddu = global_options[:bddu]
-    adminname = args.shift
-    filmname = args.shift
+    admin_name = args.shift
+    film_name = args.shift
     date = args.shift
     writer = args.shift
 
-    res = Mediatec.addfilm(adminname, filmname, writer, date, FluxFilm.read(bddf), FluxUser.read(bddu))
+    res = Mediatec.add_film(admin_name, film_name, writer, date, FluxFilm.read(bddf), FluxUser.read(bddu))
     #Modification de la BDD
     FluxFilm.write(bddf, res)
 
     puts "addfilm command ran"
   end
 end
-
-#Help à supprimer ?
-#desc 'Describe help here'
-#arg_name 'Describe arguments to help here'
-#command :help do |c|
-#  c.action do |global_options,options,args|
-#    puts "help command ran"
-#  end
-#end
 
 pre do |global,command,options,args|
   # Pre logic here
