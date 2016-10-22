@@ -1,20 +1,20 @@
 module FluxFilm
-	def self.read(filename)
-		filmsTab = []
+	def self.read(file_name)
+		films_tab = []
 
-		flux = File.open(filename)
+		flux = File.open(file_name)
     	flux.readlines.map do |ligne|
 			tab = ligne.delete!("\n").split(";")
-			filmsTab << Film.new(tab[0],tab[1],tab[2],tab[3],tab[4])
+			films_tab << Film.new(tab[0],tab[1],tab[2],tab[3],tab[4])
 		end
         flux.close
 
-		return filmsTab
+		return films_tab
 	end
 
-	def self.write(filename, filmsTab)
-		flux = File.open(filename, "w")
-		filmsTab.each do |film|
+	def self.write(file_name, films_tab)
+		flux = File.open(file_name, "w")
+		films_tab.each do |film|
 			flux.puts film.titre + ";" + film.realisateur + ";" + film.date + ";" + film.emprunt + ";" + film.reservation
 		end
         flux.close

@@ -1,21 +1,21 @@
 module FluxUser
-	def self.read(filename)
-		usersTab = []
+	def self.read(file_name)
+		users_tab = []
 
-		flux = File.open(filename)
+		flux = File.open(file_name)
     	flux.readlines.map do |ligne|
 			tab = ligne.delete!("\n").split(";")
-			usersTab << User.new(tab[0],tab[1])
+			users_tab << User.new(tab[0],tab[1])
 		end
         flux.close
 
-		return usersTab
+		return users_tab
 	end
 
-	def self.write(filename, usersTab)
-		flux = File.open(filename, "w")
-		usersTab.each do |user|
-			flux.puts user.usrname + ";" + user.adminrights
+	def self.write(file_name, users_tab)
+		flux = File.open(file_name, "w")
+		users_tab.each do |user|
+			flux.puts user.usrname + ";" + user.admin_rights
 		end
         flux.close
 	end
