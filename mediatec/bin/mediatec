@@ -22,58 +22,46 @@ desc 'Describe some switch here'
 switch [:s,:switch]
 
 desc 'Execution en chargeant la bdd de films de voulue'
-default_value 'bdd_films.txt'
-arg_name 'bdd_films'
+default_value 'bddfilms.txt'
+arg_name 'bddfilms'
 flag [:bddf]
 
 
 desc 'Execution en chargeant la bdd de users de voulue'
-default_value 'bdd_users.txt'
-arg_name 'bdd_users'
+default_value 'bddusers.txt'
+arg_name 'bddusers'
 flag [:bddu]
-
-#TODO chargement de BDD dans classes
 
 desc 'Emprunt d un film dont le nom est precise en argument par un utilisateur usrname'
 arg_name 'film_name usrname'
 command :borrow do |c|
-  c.desc 'Prolongement d un emprunt'
-  c.switch [:a,:again]
+	c.desc 'Prolongement d un emprunt'
+	c.switch [:a,:again]
 
-c.desc 'Reservation'
-c.switch [:b,:book]
+	c.desc 'Reservation'
+	c.switch [:b,:book]
 
-  #c.desc 'Describe a flag to borrow'
-  #c.default_value 'default'
-  #c.flag :f
+	c.action do |global_options,options,args|
+		bddf = global_options[:bddf]
+		bddu = global_options[:bddu]
+		again = options[:a]
+		book = options[:book]
+		film = args.shift
+		user = args.shift
 
-  c.action do |global_options,options,args|
+		res = Mediatec.borrow(film, user, FluxFilm.read(bddf), FluxUser.read(bddu))
+		#Modification de la BDD
+		FluxFilm.write(bddf, res)
 
-    # Your command logic here
-     
-    # If you have any errors, just raise them
-    # raise "that command made no sense"
-    #ici a-t-on besoin de faire l’appel à l’option globale ? quelle bdd utilisée ?
-    bddf = global_options[:bddf]
-    bddu = global_options[:bddu]
-    again = options[:a]
-    book = options[:book]
-    film = args.shift
-    user = args.shift
-
-    res = Mediatec.borrow(film, user, FluxFilm.read(bddf), FluxUser.read(bddu))
-    #Modification de la BDD
-    FluxFilm.write(bddf, res)
-
-    puts "borrow command ran"
-  end
+		puts "borrow command ran"
+	end
 end
 
 desc 'Retour d un film dont le nom est precise en argument'
 arg_name 'film_name'
 command :return do |c|
   c.action do |global_options,options,args|
-bddf = global_options[:bddf]
+	bddf = global_options[:bddf]
     film = args.shift
 
     res = Mediatec.return(film, FluxFilm.read(bddf))
@@ -150,11 +138,12 @@ command :add_film do |c|
     bddu = global_options[:bddu]
     admin_name = args.shift
     film_name = args.shift
-    date = args.shift
     writer = args.shift
+	date = args.shift
 
     res = Mediatec.add_film(admin_name, film_name, writer, date, FluxFilm.read(bddf), FluxUser.read(bddu))
     #Modification de la BDD
+
     FluxFilm.write(bddf, res)
 
     puts "addfilm command ran"
