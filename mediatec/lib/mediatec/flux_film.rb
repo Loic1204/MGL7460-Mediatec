@@ -14,9 +14,9 @@ module FluxFilm
 
 	def self.write(file_name, films_tab)
 		flux = File.open(file_name, "w")
-		emprunt = (film.emprunt.nil? ? "" : film.emprunt)
 		
 		films_tab.each do |film|
+			emprunt = (film.emprunt.nil? ? "" : film.emprunt)
 			flux.puts film.titre + ";" + film.realisateur + ";" + film.date + ";" + emprunt + ";"
 		end
         flux.close
