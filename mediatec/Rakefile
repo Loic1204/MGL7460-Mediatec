@@ -7,6 +7,40 @@ require 'cucumber/rake/task'
 
 MEDIATEC = 'bundle exec bin/mediatec'
 
+###################################################
+
+
+task :test_check do
+     sh "rake test TEST=test/check_test.rb"     
+end
+
+task :test_search do
+     sh "rake test TEST=test/search_test.rb"     
+end
+
+task :test_add_usr do
+     sh "rake test TEST=test/add_usr_test.rb"     
+end
+
+task :test_add_film do
+     sh "rake test TEST=test/add_film_test.rb"     
+end
+
+task :test_borrow do
+     sh "rake test TEST=test/borrow_test.rb"     
+end
+
+task :test_return do
+     sh "rake test TEST=test/return_test.rb"     
+end
+
+#task :acceptation_insert do
+#     sh "rake test_acceptation TEST=test_acceptation/insert_test.rb"
+#end
+
+
+###################################################
+
 #####################################
 
 Rake::RDocTask.new do |rd|

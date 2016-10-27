@@ -28,7 +28,7 @@ module Mediatec
 	def self.check(user, films_tab)
 		res=""
 
-		return res if user.nil?
+		#return res if user.nil?
 
 		films_tab.each do |film|
 			if user==film.emprunt
@@ -39,7 +39,7 @@ module Mediatec
 	end
 
 	def self.search(name, available, films_tab)
-		name.gsub!('_',' ')
+		name.gsub!('_',' ') unless name.nil?
 		 
 		res = "TITRE | REALISATEUR | DATE\n"
 
@@ -82,7 +82,7 @@ module Mediatec
 			already_there=true if film_name==film.titre
 		end
 
-		new_film = Film.new(film_name, writer, date, "", "")
+		new_film = Film.new(film_name, writer, date, nil, nil)
 		films_tab << new_film if !already_there
 
 		return films_tab	
