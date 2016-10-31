@@ -71,11 +71,13 @@ module Mediatec
     users.each do |user|
       admin_verified = true if admin_name == user.usrname && user.admin_rights =~ /admin/
     end
+
     films.each do |film|
       already_there = true if film_name == film.titre
     end
+    puts films if already_there || !admin_verified
 
     new_film = Film.new(film_name, writer, date, nil, nil)
-    films << new_film if !already_there	
+    films << new_film
   end
 end
