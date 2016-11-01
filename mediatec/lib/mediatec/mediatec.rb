@@ -8,6 +8,8 @@ module Mediatec
     users.each do |user|
       user_verified = true if usrname == user.usrname
     end
+
+#user_verified = users.any? {|user| user.usrname == usrname }
     return films unless user_verified
 
     films.each do |film|
@@ -75,7 +77,7 @@ module Mediatec
     films.each do |film|
       already_there = true if film_name == film.titre
     end
-    puts films if already_there || !admin_verified
+    return films if already_there || !admin_verified
 
     new_film = Film.new(film_name, writer, date, nil, nil)
     films << new_film
