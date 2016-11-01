@@ -4,9 +4,10 @@ module FluxUser
 
     flux = File.open(file_name)
     flux.readlines.map do |ligne|
-      tab = ligne.delete!("\n").split(";")
-      users << User.new(tab[0],tab[1])
+      usrname, rights = ligne.delete!("\n").split(";")
+      users << User.new(usrname, rights)
     end
+
     flux.close
 
     return users

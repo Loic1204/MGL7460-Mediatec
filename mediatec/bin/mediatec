@@ -52,8 +52,6 @@ command :borrow do |c|
 		res = Mediatec.borrow(film, user, FluxFilm.read(bddf), FluxUser.read(bddu))
 		#Modification de la BDD
 		FluxFilm.write(bddf, res)
-
-		puts "borrow command ran"
 	end
 end
 
@@ -67,8 +65,6 @@ command :return do |c|
     res = Mediatec.return(film, FluxFilm.read(bddf))
     #Modification de la BDD
 	FluxFilm.write(bddf, res)
-
-    puts "return command ran"
   end
 end
 
@@ -125,8 +121,6 @@ c.switch [:a,:admin]
     res = Mediatec.add_usr(admin_flag, admin_name, usrname, FluxUser.read(bddu))
     #Modification de la BDD
 	FluxUser.write(bddu,res)
-
-    puts "addusr command ran"
   end
 end
 
@@ -145,8 +139,6 @@ command :add_film do |c|
     #Modification de la BDD
 
     FluxFilm.write(bddf, res)
-
-    puts "addfilm command ran"
   end
 end
 

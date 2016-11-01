@@ -5,9 +5,7 @@ module Mediatec
     film_name.gsub!('_',' ')
 
     user_verified = false
-    users.each do |user|
-      user_verified = true if usrname == user.usrname
-    end
+    user_verified = users.any? { |user| user.usrname == usrname }
     return films unless user_verified
 
     films.each do |film|
@@ -22,9 +20,10 @@ module Mediatec
   end
 
   def self.check(user, films)
-    res = ""
-
-    #return res if user.nil?
+    #res = films.inject("") do |checklist, film| 
+    #  checklist << film.titre + "\n" if !film.emprunt.nil? && user == film.emprunt
+    #end
+    # Retourne "error: undefined method `<<' for nil:NilClass" sauf si on enleve le "if"
 
     films.each do |film|
       if user == film.emprunt
@@ -52,13 +51,11 @@ module Mediatec
     admin_verified = false
     already_there = false
 
-    users.each do |user|
-      already_there = true if usrname == user.usrname
-      admin_verified = true if admin_name == user.usrname && user.admin_rights =~ /admin/
-    end
+    already_there = users.any? { |user| usrname == user.usrname }
+    admin_verified = users.any? { |user| admin_name == user.usrname && user.admin_rights =~ /admin/ }
+    return users if already_there || !admin_verified
 
-    new_user = User.new(usrname,(admin_flag == true ? "admin" : "user"))
-    users << new_user if admin_verified && !already_there
+    users << User.new(usrname, (admin_flag ? "admin" : "user"))
   end
 
   def self.add_film(admin_name, film_name, writer, date, films, users)
@@ -67,15 +64,11 @@ module Mediatec
 
     film_name.gsub!('_',' ')
     writer.gsub!('_',' ')
-	
-    users.each do |user|
-      admin_verified = true if admin_name == user.usrname && user.admin_rights =~ /admin/
-    end
-    films.each do |film|
-      already_there = true if film_name == film.titre
-    end
 
-    new_film = Film.new(film_name, writer, date, nil, nil)
-    films << new_film if !already_there	
+    admin_verified = users.any? { |user| admin_name == user.usrname && user.admin_rights =~ /admin/ }
+    already_there = film.any? { |film| film_name == film.titre}
+    return films if already_there || !admin_verified
+
+    films << Film.new(film_name, writer, date, nil, nil)
   end
 end

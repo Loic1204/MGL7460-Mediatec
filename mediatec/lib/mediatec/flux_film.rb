@@ -4,8 +4,8 @@ module FluxFilm
 
     flux = File.open(file_name)
     flux.readlines.map do |ligne|
-      tab = ligne.delete!("\n").split(";")
-      films << Film.new(tab[0],tab[1],tab[2],tab[3],tab[4])
+      titre, realisateur, date, emprunt, reservation = ligne.delete!("\n").split(";")
+      films << Film.new(titre, realisateur, date, emprunt, reservation)
     end
     flux.close
 
