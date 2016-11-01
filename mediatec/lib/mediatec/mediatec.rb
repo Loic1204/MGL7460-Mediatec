@@ -66,7 +66,7 @@ module Mediatec
     writer.gsub!('_',' ')
 
     admin_verified = users.any? { |user| admin_name == user.usrname && user.admin_rights =~ /admin/ }
-    already_there = film.any? { |film| film_name == film.titre}
+    already_there = films.any? { |film| film_name == film.titre}
     return films if already_there || !admin_verified
 
     films << Film.new(film_name, writer, date, nil, nil)
