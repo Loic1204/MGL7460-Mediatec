@@ -25,6 +25,7 @@ module Mediatec
     #end
     # Retourne "error: undefined method `<<' for nil:NilClass" sauf si on enleve le "if"
 
+    res = ""
     films.each do |film|
       if user == film.emprunt
         res << film.titre + "\n"

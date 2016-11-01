@@ -9,8 +9,10 @@ describe Mediatec do
 	let(:d) { Film.new("Ddd", "ddd", "2016", nil, nil) }  
 	let(:u_one) { User.new("user", "admin")}
 	let(:u_two) { User.new("toto", "user")}
-	before { @f = [a,b,c,d]}
-	before { @u = [u_one,u_one]}
+	before do
+      @f = [a,b,c,d]
+      @u = [u_one,u_two]
+	end
 
     describe "cas avec une demande de creation d'un film par un user sans droits d'admin" do
       it "retourne la table sans modification lorsque les droits d'admin ne sont pas verifies" do

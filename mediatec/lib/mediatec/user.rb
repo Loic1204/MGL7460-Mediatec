@@ -7,6 +7,6 @@ class User
   end
 
   def ==(user)
-    self.name == user.name && self.admin_rights == user.admin_rights
+    self.usrname == user.usrname && self.admin_rights == user.admin_rights
   end
 end

@@ -8,4 +8,8 @@ class Film
   def initialize (titre, realisateur, date, emprunt, reservation)
     @titre, @realisateur, @date, @emprunt, @reservation = titre, realisateur, date, emprunt, reservation
   end
+
+  def ==(film)
+    self.titre == film.titre && self.realisateur == film.realisateur && self.date == film.date && self.emprunt == film.emprunt && self.reservation == film.reservation
+  end
 end
