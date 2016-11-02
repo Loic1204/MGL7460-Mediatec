@@ -4,7 +4,6 @@ module Mediatec
   def self.borrow(film_name, usrname, films, users)
     film_name.gsub!('_',' ')
 
-    user_verified = false
     user_verified = users.any? { |user| user.usrname == usrname }
     return films unless user_verified
 
@@ -20,11 +19,6 @@ module Mediatec
   end
 
   def self.check(user, films)
-    #res = films.inject("") do |checklist, film| 
-    #  checklist << film.titre + "\n" if !film.emprunt.nil? && user == film.emprunt
-    #end
-    # Retourne "error: undefined method `<<' for nil:NilClass" sauf si on enleve le "if"
-
     res = ""
     films.each do |film|
       if user == film.emprunt
