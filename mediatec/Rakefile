@@ -37,6 +37,14 @@ task :test_return do
      sh "rake test TEST=test/return_test.rb"     
 end
 
+task :test_flux_user do
+     sh "rake test TEST=test/flux_user_test.rb"     
+end
+
+task :test_flux_film do
+     sh "rake test TEST=test/flux_film_test.rb"     
+end
+
 #task :acceptation_insert do
 #     sh "rake test_acceptation TEST=test_acceptation/insert_test.rb"
 #end

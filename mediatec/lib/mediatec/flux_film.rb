@@ -4,12 +4,12 @@ module FluxFilm
 
     flux = File.open(file_name)
     flux.readlines.map do |ligne|
-      titre, realisateur, date, emprunt, reservation = ligne.delete!("\n").split(";")
+      titre, realisateur, date, emprunt, reservation = ligne.delete("\n").split(";")
       films << Film.new(titre, realisateur, date, emprunt, reservation)
     end
     flux.close
 
-    return films
+    films
   end
 
   def self.write(file_name, films)
@@ -17,7 +17,8 @@ module FluxFilm
 		
     films.each do |film|
       emprunt = (film.emprunt.nil? ? "" : film.emprunt)
-      flux.puts film.titre + ";" + film.realisateur + ";" + film.date + ";" + emprunt + ";"
+      reservation = (film.reservation.nil? ? "" : film.reservation)
+      flux.puts film.titre + ";" + film.realisateur + ";" + film.date + ";" + emprunt + ";" + reservation
     end
     flux.close
   end

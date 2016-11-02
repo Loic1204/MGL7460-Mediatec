@@ -4,13 +4,13 @@ module FluxUser
 
     flux = File.open(file_name)
     flux.readlines.map do |ligne|
-      usrname, rights = ligne.delete!("\n").split(";")
+      usrname, rights = ligne.delete("\n").split(";")
       users << User.new(usrname, rights)
     end
 
     flux.close
 
-    return users
+    users
   end
 
   def self.write(file_name, users)
