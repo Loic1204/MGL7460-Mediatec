@@ -9,7 +9,7 @@ MEDIATEC = 'bundle exec bin/mediatec'
 
 ###################################################
 
-task :default => :test_search
+task :default => :default_test
 
 ###################################################
 
@@ -48,6 +48,10 @@ end
 #task :acceptation_insert do
 #     sh "rake test_acceptation TEST=test_acceptation/insert_test.rb"
 #end
+
+task :default_test do
+     sh "rake test TEST=test/default_test.rb"     
+end
 
 
 ###################################################

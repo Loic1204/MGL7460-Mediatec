@@ -3,7 +3,7 @@ module FluxFilm
     films = []
 
     flux = File.open(file_name)
-    flux.readlines.map do |ligne|
+    flux.readlines.each do |ligne|
       titre, realisateur, date, emprunt, reservation = ligne.delete("\n").split(";")
       films << Film.new(titre, realisateur, date, emprunt, reservation)
     end
