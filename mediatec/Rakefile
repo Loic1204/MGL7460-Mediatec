@@ -9,6 +9,9 @@ MEDIATEC = 'bundle exec bin/mediatec'
 
 ###################################################
 
+task :default => :test_search
+
+###################################################
 
 task :test_check do
      sh "rake test TEST=test/check_test.rb"     
