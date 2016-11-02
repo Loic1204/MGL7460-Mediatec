@@ -61,7 +61,7 @@ Feature: Faire une recherche sur les films
     Avengers;Joss Whedon;2015;;
     Inception;Christopher Nolan;2010;loicd;
     """
-    When j'execute `mediatec --bddf=testbddf.txt search -a --name=Inception`
+    When j'execute `mediatec --bddf=testbddf.txt search -a --name=Ant-Man`
 
     Then the stdout should contain exactly:
     """
