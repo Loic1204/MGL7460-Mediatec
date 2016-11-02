@@ -18,9 +18,6 @@ version Mediatec::VERSION
 subcommand_option_handling :normal
 arguments :strict
 
-desc 'Describe some switch here'
-switch [:s,:switch]
-
 desc 'Execution en chargeant la bdd de films de voulue'
 default_value 'bddfilms.txt'
 arg_name 'bddfilms'
@@ -68,15 +65,12 @@ command :return do |c|
   end
 end
 
-desc 'Affiche la liste des emprunts et reservations en cours'
+desc 'Affiche la liste des emprunts en cours'
 arg_name 'usrname'
 command :check do |c|
 c.desc 'Afficher les films reserves par l utilisateur usrname'
-c.switch [:b,:booking]
-
   c.action do |global_options,options,args|
     bddf = global_options[:bddf]
-    booking = options[:b]
     user = args.shift
 
     res = Mediatec.check(user, FluxFilm.read(bddf))
@@ -97,7 +91,7 @@ c.desc 'Recherche de films disponibles'
 c.switch [:a,:available]
 
   c.action do |global_options,options,args|
-bddf = global_options[:bddf]
+    bddf = global_options[:bddf]
     name = options[:name]
     available = options[:a]
     
