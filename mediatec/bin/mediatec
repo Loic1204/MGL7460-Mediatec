@@ -18,6 +18,9 @@ version Mediatec::VERSION
 subcommand_option_handling :normal
 arguments :strict
 
+@users = []
+@films = []
+
 desc 'Execution en chargeant la bdd de films de voulue'
 default_value 'bddfilms.txt'
 arg_name 'bddfilms'
@@ -46,9 +49,7 @@ command :borrow do |c|
 		film = args.shift
 		user = args.shift
 
-		res = Mediatec.borrow(film, user, FluxFilm.read(bddf), FluxUser.read(bddu))
-		#Modification de la BDD
-		FluxFilm.write(bddf, res)
+		@films = Mediatec.borrow(film, user, @films, @users)
 	end
 end
 
@@ -59,9 +60,7 @@ command :return do |c|
 	bddf = global_options[:bddf]
     film = args.shift
 
-    res = Mediatec.return(film, FluxFilm.read(bddf))
-    #Modification de la BDD
-	FluxFilm.write(bddf, res)
+    @films = Mediatec.return(film, @films)
   end
 end
 
@@ -73,7 +72,7 @@ c.desc 'Afficher les films reserves par l utilisateur usrname'
     bddf = global_options[:bddf]
     user = args.shift
 
-    res = Mediatec.check(user, FluxFilm.read(bddf))
+    res = Mediatec.check(user, @films)
     #Affiche la liste des emprunts
     puts res
     
@@ -95,7 +94,7 @@ c.switch [:a,:available]
     name = options[:name]
     available = options[:a]
     
-    res = Mediatec.search(name, available, FluxFilm.read(bddf))
+    res = Mediatec.search(name, available, @films)
     puts res
   end
 end
@@ -112,9 +111,7 @@ c.switch [:a,:admin]
     admin_name = args.shift
     usrname = args.shift
 
-    res = Mediatec.add_usr(admin_flag, admin_name, usrname, FluxUser.read(bddu))
-    #Modification de la BDD
-	FluxUser.write(bddu,res)
+    @users = Mediatec.add_usr(admin_flag, admin_name, usrname, @users)
   end
 end
 
@@ -129,10 +126,7 @@ command :add_film do |c|
     writer = args.shift
 	date = args.shift
 
-    res = Mediatec.add_film(admin_name, film_name, writer, date, FluxFilm.read(bddf), FluxUser.read(bddu))
-    #Modification de la BDD
-
-    FluxFilm.write(bddf, res)
+    @films = Mediatec.add_film(admin_name, film_name, writer, date, @films, @users)
   end
 end
 
@@ -142,6 +136,8 @@ pre do |global,command,options,args|
   # chosen command
   # Use skips_pre before a command to skip this block
   # on that command only
+  @films = FluxFilm.read(global[:bddf])
+  @users = FluxUser.read(global[:bddu])
   true
 end
 
@@ -149,6 +145,8 @@ post do |global,command,options,args|
   # Post logic here
   # Use skips_post before a command to skip this
   # block on that command only
+  FluxFilm.write(global[:bddf], @films)
+  FluxUser.write(global[:bddu], @users)
 end
 
 on_error do |exception|
